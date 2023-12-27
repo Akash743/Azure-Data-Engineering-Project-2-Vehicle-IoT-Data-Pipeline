@@ -18,4 +18,7 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
 **Steps:**
 1. Create S3 bucket: We're assuming that IoT data from Vehicle will be uploaded here on daily basis. This S3 data is to be transferred to the Azure database. Make nested folders like outer most IoTData, then for current Year, then Month and then respective Date
 2. Create Azure Key Vault: To store secret keys to access S3 bucket from Azure
-3. Create Storage Account and Container in Azure to receive data from AWS S3: This will store the data within Containers. Would need one Resource Group creation first.
+3. Create Storage Account and Container in Azure to receive data from AWS S3: This will store the data within Containers. Would need one Resource Group creation first. Create 'Landing Folder' which will be the destinaton for all JSON files coming from AWS S3.
+4. Create ADF account: WIll use ADF to build pipelines for data transfer
+5. Create Key Vaults: To store secrets for accessing files stored in S3. Go to 'Secrets' and store the Access key Id and Acess Key Secret of S3. Add Access Policy to the Key Vault. This will enble the ADF account to access Keys stored
+6. Create Ingestion Pipeline in Data Factory:  
