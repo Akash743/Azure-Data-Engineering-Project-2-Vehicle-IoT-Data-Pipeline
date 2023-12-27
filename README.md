@@ -21,4 +21,7 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
 3. Create Storage Account and Container in Azure to receive data from AWS S3: This will store the data within Containers. Would need one Resource Group creation first. Create 'Landing Folder' which will be the destinaton for all JSON files coming from AWS S3.
 4. Create ADF account: WIll use ADF to build pipelines for data transfer
 5. Create Key Vaults: To store secrets for accessing files stored in S3. Go to 'Secrets' and store the Access key Id and Acess Key Secret of S3. Add Access Policy to the Key Vault. This will enble the ADF account to access Keys stored
-6. Create Ingestion Pipeline in Data Factory:  
+6. Create Ingestion Pipeline in Data Factory:
+   - Create Linked Service for connecting ADF to S3
+   - Create Linked Service for conneting ADF to ADLS account
+   - Create Pipeline in ADF to connect S3 to ADLS: Using copy activity, provide Source and Sink
