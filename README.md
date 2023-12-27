@@ -13,3 +13,9 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
 **Pipeline:**
 
 ![Pipeline](https://github.com/Akash743/Azure-Data-Engineering-Project-Vehicle-IoT-Data-Pipeline/assets/57750483/80dab8a1-6bc9-4be0-b8ad-1ba1a15d0543)
+
+
+**Steps:**
+1. Create S3 bucket: We're assuming that IoT data from Vehicle will be uploaded here on daily basis. This S3 data is to be transferred to the Azure database. Make nested folders like outer most IoTData, then for current Year, then Month and then respective Date
+2. Create Azure Key Vault: To store secret keys to access S3 bucket from Azure
+3. Create Storage Account and Container in Azure to receive data from AWS S3: This will store the data within Containers. Would need one Resource Group creation first.
