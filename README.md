@@ -37,4 +37,14 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
    - Add 'Staging' & "Rejected' folder as function's output destination based on the validation. Add destination file format as JSON
    - Add code logic in function
   
-8. **Create SQL DB:** 
+8. **Create SQL DB**: Select a server. This sever can be used for multiple databases. In Network Connectity, choose Public Endpoint as of now. In Firewall Rules, allow Azue Services & Resources to access this server
+9. **Create ADF Pipeline to move data from ADLS Staging folder to SQL DB**:
+   - Create Linked Service for connecting to DB. Create Table in DB
+          create table [dbo].[VehicleData1] (
+          VehicleID nvarchar(100),
+          latitude decimal,
+          longitude decimal,
+          city nvarchar(100),
+          temperature int,
+          speed int
+          )
