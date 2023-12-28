@@ -41,10 +41,17 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
 9. **Create ADF Pipeline to move data from ADLS Staging folder to SQL DB**:
    - Create Linked Service for connecting to DB. Create Table in DB
           create table [dbo].[VehicleData1] (
+     
           VehicleID nvarchar(100),
+     
           latitude decimal,
+     
           longitude decimal,
+     
           city nvarchar(100),
+     
           temperature int,
+     
           speed int
+     
           )
