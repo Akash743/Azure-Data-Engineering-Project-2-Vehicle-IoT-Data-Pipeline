@@ -1,0 +1,4 @@
+
+Extracting files from time based folders:
+
+formatDateTime(utcnow(),'yyyy'),'/',formatDateTime(utcnow(),'MM'),'/',formatDateTime(utcnow(),'dd'),'/'
