@@ -23,7 +23,7 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
 3. **Create Storage Account and Container in Azure**: To receive data from AWS S3: This will store the data within Containers. Would need one Resource Group creation first. Create 'Landing Folder' which will be the destinaton for all JSON files coming from AWS S3.
 4. **Create ADF account:** Will use ADF to build pipelines for data transfer
 5. **Create Key Vaults:** To store secrets for accessing files stored in S3. Go to 'Secrets' and store the Access key Id and Acess Key Secret of S3. Add Access Policy to the Key Vault. This will enble the ADF account to access Keys stored
-6. **Create Ingestion Pipeline in Data Factory:**
+6. **Pipeline 2: Create Ingestion Pipeline in Data Factory:**
    - Create Linked Service for connecting ADF to S3
    - Create Linked Service for conneting ADF to ADLS account
    - Create Pipeline in ADF to connect S3 to ADLS: Using copy activity, provide Source (S3) and Sink (ADLS Landing Folder). We want data to be stored dynamically in the ADLS based on date similar to how it got saved in AWS. So, while saving Source and Sink folder paths, will add 'dynamic content' with folder path
@@ -38,7 +38,7 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
    - Add code logic in function
   
 8. **Create SQL DB**: Select a server. This sever can be used for multiple databases. In Network Connectity, choose Public Endpoint as of now. In Firewall Rules, allow Azue Services & Resources to access this server
-9. **Create ADF Pipeline to move data from ADLS Staging folder to SQL DB**:
+9. **Pipeline 2: Create ADF Pipeline to move data from ADLS Staging folder to SQL DB**:
    - Create Linked Service for connecting to DB. Create Table in DB
      
           create table [dbo].[VehicleData1] (
@@ -56,3 +56,21 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
           speed int
      
           )
+   - Source: Use pevously created linked service in Pipeline 1 to access ADLS. Data will be read from ADLS Input/Staging Folder. Check Wildcard file path to read all files in directory. Add JSON path to file.
+   - Sink: SQL DB. Add Storage Event Trigger to this. This is to ensure that pipeline uns whenever any file is created in Input/Staging folder
+  
+10. **Pipeline Testing**:
+    - Add Valid JSON file to iotData>>2023>>12>>28
+    - Check Landing Folder in Azure: Input>>Landing>>2023>>12>>28. Will got moved successfully. Can check the Pipeline stats also
+    - Check Staging Folder: Input>>Staging Folder. File moved successfully from Landing to Staging folder being a valid JSON file. Can heck Azure Function's execution
+    - Check the database:
+
+         select count(*) from [dbo].VehicleData1
+
+      This will show the records count. Also, just go to Pipeline 2. It will show the execution summary.
+
+11. **Can Connect the DB to visualization tools like Power BI for further analysis**
+
+
+Thank you !!
+
