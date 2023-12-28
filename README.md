@@ -6,6 +6,8 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
 · You need to validate the JSON sometime it could be incomplete or wrong JSON which need to be rejected.
 · Once JSON got validated this data would be stored in the SQL database which will be further utilized by data science team.
 
+**As soon as any JSON file gets uploaded in the AWS S3 folder named on that day's date, it should get transferred into ADLS and Azure SQL database after proper validation**
+
 **Overview:**
 
 ![Pipeline Overview](https://github.com/Akash743/Azure-Data-Engineering-Project-Vehicle-IoT-Data-Pipeline/assets/57750483/7b9e32ae-b9e8-4617-8af6-4ba1a2d38af7)
@@ -24,4 +26,6 @@ Vehicle has third party loT device which will send the telemetry data (in JSON f
 6. Create Ingestion Pipeline in Data Factory:
    - Create Linked Service for connecting ADF to S3
    - Create Linked Service for conneting ADF to ADLS account
-   - Create Pipeline in ADF to connect S3 to ADLS: Using copy activity, provide Source and Sink
+   - Create Pipeline in ADF to connect S3 to ADLS: Using copy activity, provide Source (S3) and Sink (ADLS Landing Folder). We want data to be stored dynamically in the ADLS based on date similar to how it got saved in AWS. So, while saving Source and Sink folder paths, will add 'dynamic content' with folder path
+   - Parameter in Source side: @concat(formatDateTime(utcnow(),'yyyy'),'/',formatDateTime(utcnow(),'MM'),'/',formatDateTime(utcnow(),'dd'),'/')
+   - Parameter in Sink side: @concat('landing/',formatDateTime(utcnow(),'yyyy'),'/',formatDateTime(utcnow(),'MM'),'/',formatDateTime(utcnow(),'dd'),'/')
